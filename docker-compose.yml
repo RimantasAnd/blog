@@ -1,0 +1,38 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql:8.0.29-oracle
+    restart: always
+    ports:
+      - "3306:3306"
+
+    environment:
+      MYSQL_ROOT_PASSWORD: verysecretpassword
+      MYSQL_DATABASE: blog
+      MYSQL_USER: blog_admin
+      MYSQL_PASSWORD: passwordux
+    # networks:
+      # - pma_networks
+  #############################
+  # PHPMYADMIN SERVIVICES
+  #############################
+  # pma:
+  #   image: phpmyadmin:latest
+  #   restart: always
+  #   environment:
+  #     - PMA_ARBITRARY=1
+  #   ports:
+  #     - 8081:80
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - pma_networks
+################################
+# SAME NETWORKS FOR ALL SERVICE
+###############################
+# networks:
+#   pma_networks:
+
+
