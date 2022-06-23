@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head th:replace="fragments/head :: head('post list')"></head>
+<body>
+<div class="container">
+    <div class="posts-streem">
+        <div th:fragment="postStreem">
+            <div th:each="post: ${posts}" >
+                <div class="card">
+                    <div th:fragment="postReadingHeader">
+                        <div class="card-body">
+                            <div class="card-subtitle mb-2 text-muted">
+                                <div>
+                                    <span th:text=#{postID} class="app-small"></span>
+                                    <span th:text="${post.getId()}" class="app-small"></span>
+                                </div>
+                                <div>
+                                    <span th:text="${post.getPostTimeStamp()}" class="app-small"></span>
+                                </div>
+                            </div>
+                            <div class="card-title">
+                                <div>
+                                    <span th:text="${post.getTitle()}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-text">
+                        <span th:utext="${post.getPostText()}" class="d-inline-block text-truncate" ></span>
+                    </div>
+                    <a th:href="@{'/post/list/read/' + ${post.getId()}}" class="btn btn-primary" th:text=#{postGoReading} ></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragments/pagination :: pagination"></div>
+</div>
+
+
+<div th:replace="fragments/footer :: footer-scripts"></div>
+</body>
+</html>
