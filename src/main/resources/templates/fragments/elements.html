@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+
+
+<body>
+    <div th:fragment="button(btnType,btnText)" class="col-12">
+        <!--        <button class="btn btn-primary"-->
+        <button class="btn"
+                type="submit"
+                th:text=${btnText}
+                th:classappend=${btnType}
+        ></button>
+    </div>
+
+<div th:fragment="linkAsButton(btnType,btnText,url)" class="nav nav-pills">
+    <a class="nav-link"
+       aria-current="page"
+       th:href=${url}
+       th:text=${btnText}
+       th:classappend=${btnType}
+    ></a>
+</div>
+
+<div th:fragment="switch(swLabelText)" class="form-check form-switch">
+    <input class="form-check-input"
+           type="checkbox"
+           role="switch"
+           id="flexSwitchCheckDefault"
+           th:onclick="'javascript:switchChangeSend();'">
+<!--           th:onclick="'javascript:userSettings(' + ${user.id} + ', this );'"-->
+    <label class="form-check-label"
+           for="flexSwitchCheckDefault"
+           th:text=${swLabelText}
+    ></label>
+</div>
+
+
+
+</body>
+</html>

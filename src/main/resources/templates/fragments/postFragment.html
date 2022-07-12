@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en" xml:lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="postReadingHeader">
+    <div class="card-body">
+        <div class="card-subtitle mb-2 text-muted">
+            <div>
+                <span th:text=#{postID} class="app-small"></span>
+                <span th:text="${post.getId()}" class="app-small"></span>
+            </div>
+            <div>
+                <span th:text="${post.getPostTimeStamp()}" class="app-small"></span>
+            </div>
+        </div>
+        <div class="card-title">
+<!--            <div>-->
+<!--                <span th:text="${post.getUser().getName()}"></span>-->
+<!--                <span th:text="${post.getUser().getSurname()}"></span>-->
+<!--            </div>-->
+            <div>
+                <span th:text="${post.getTitle()}"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="commentCreate" class="container">
+    <div class="container"><p></p></div>
+    <form th:action="@{/posts/proposeToDelete/}+${id}" th:object="${comment}" method="post">
+        <div th:if="!${post.isProposeToDelete()}">
+            <div class="form-check form-switch">
+                <input name=proposeToDelete class="form-check-input" type="checkbox" role="switch"
+                       id="postProposeToDelete">
+                <label class="form-check-label" for="postProposeToDelete" th:text=#{postProposeToDelete}></label>
+            </div>
+        </div>
+        <div th:if="${post.isProposeToDelete()}">
+            <div class="form-check form-switch">
+                <input name=proposeToDelete class="form-check-input" type="checkbox" role="switch"
+                       id="postProposeToDeleteChecked" checked>
+                <label class="form-check-label" for="postProposeToDeleteChecked" th:text=#{postProposeToDelete}></label>
+            </div>
+        </div>
+        <div th:replace="fragments/postSubFormsFragments :: postProposeToDeleteButton"></div>
+    </form>
+
+    <form th:action="@{/posts/commentAdd/}+${id}" th:object="${comment}" method="post">
+        <div th:if="!${post.isCommentsLocked()}">
+            <h4 th:text=#{commentCreate}></h4>
+            <label for="tempNickName" th:text=#{postCommenterTempNickNameText}></label>
+            <input type="text" name="temporaryNic" autocomplete="off" class="form-control" id="tempNickName">
+            <label for="comment" th:text=#{postCommentText}></label>
+            <input type="text" name="commentText" autocomplete="off" class="form-control" id="comment">
+            <div class="container"><p></p></div>
+
+        </div>
+        <div th:replace="fragments/postFragments :: commentCreateButton"></div>
+    </form>
+</div>
+
+</body>
+</html>
